@@ -1,61 +1,66 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>AngularJS application</title>
-	<script src="libs/"></script>
-	<script src="js/app.js"></script>
-	<link rel="stylesheet" href="css/common.css">
-	<link rel="icon" href="img/angular.jpg" type="images/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS application</title>
+    <script src="libs/angular.js"></script>
+    <script src="js/app.js"></script>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="icon" href="img/angular.jpg" type="images/x-icon">
 </head>
-<body>
-  <div class="wrapper">
-    <div class="sidebar">
-      <h1>Main</h1>
-      <ul class="navbar-list">
-        <li>Overview</li>
-      </ul>
+
+<body data-ng-app="overviewApp">
+    <div class="wrapper">
+        <div class="sidebar">
+            <h1>Main</h1>
+            <ul class="navbar-list">
+                <li>Overview</li>
+            </ul>
+        </div>
+        <div class="main-section" data-ng-controller="overviewCtrl">
+            <div class="item-section">
+                <h3>Items</h3>
+                <div class="item-add-block">
+                    <input type="text" data-ng-model="itemName" maxlength="15"  placeholder="Type name here...">
+                    <input type="button" value="Add new" data-ng-click="addItem()">
+                </div>
+                <div class="item-list-section">
+                    <ul class="item-list">
+                        <li data-ng-repeat="key in items track by $index" data-ng-click="selectedItem(key)" ng-class="{'active' : uniqueId === key.id }">
+                            <div class="item-control">
+                                <p>{{key.name}}<span class="count-comments">{{key.comment.length}}</span>
+                                </p>
+                                <input type="button" value="Delete" data-ng-click="removeItem($index)">
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="comment-section">
+                <h3>Comment #</h3>
+                <div class="add-comment-section">
+                    <ul class="list-comment">
+                        <li data-ng-repeat="comments in retrive">
+                            <div class="comment" data-ng-show="loadComment == true">
+                                <a href="#">
+                                    <img src="img/angular.jpg" alt="avatar">
+                                </a>
+                                <p>{{comments.massage}}</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="leave-comment">
+                        <a href="#">
+                            <img src="img/angular.jpg" alt="avatar">
+                        </a>
+                        <textarea ng-disabled="uniqueId === undefined" cols="30" rows="10" placeholder="Please hit Enter to leave comment..." data-ng-model="massageComment" data-ng-keyup="addComment($event)"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="main-section">
-      <div class="item-section">
-        <h3>Items</h3>
-        <div class="item-add-block">
-          <input type="text" placeholder="Type name here...">
-          <input type="button" value="Add new">
-        </div>
-        <div class="item-list-section">
-          <ul class="item-list">
-            <li data-ng-repeat="">
-              <div class="item-control">
-                <p>{{}}<span class="count-comments">{{}}</span></p>
-                <input type="button" value="Delete">
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="comment-section">
-        <h3>Comment #</h3>
-        <div class="add-comment-section">
-          <ul class="list-comment">
-            <li data-ng-repeat="">
-              <div class="comment">
-                <a href="#">
-                  <img src="img/angular.jpg" alt="">
-                </a>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim consequatur perspiciatis, dicta placeat possimus esse recusandae expedita nihil rem laudantium, eaque nulla fuga. Quaerat harum itaque porro, dolorum repellat, in Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam possimus quas, est. Expedita, iure, pariatur optio ex quasi nulla saepe tempore animi perspiciatis dicta ullam impedit repellendus hic quis corporis. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam repellat, saepe, itaque, quas corporis animi, maiores similique suscipit aut quisquam aperiam minima praesentium cumque facilis! Laudantium doloribus ut eligendi hic maiores soluta incidunt nostrum officiis neque, itaque expedita dolore, saepe. Aliquid ipsam atque commodi eligendi dolore minima est deleniti neque.
-                </p>
-              </div>
-            </li>
-          </ul>
-          <div class="leave-comment">
-            <a href="#"><img src="img/angular.jpg" alt=""></a>
-            <textarea name="" id="" cols="30" rows="10" placeholder="Press Ctrl+Enter to leave comment..."></textarea>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>	
 </body>
+
 </html>
